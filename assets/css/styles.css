@@ -500,55 +500,100 @@ a { color: inherit; }
   .dial__needle, .lang-switch__btn, .button { transition: none; }
 }
 
-/* ── Hero photo ─────────────────────────────────────────── */
-/* Mobile: portrait crop, text on a paper-tinted top, bars visible below the button. */
-.hero {
-  --tint: var(--paper);
-  background-color: var(--paper);
+/* ── Full-page photo ────────────────────────────────────── */
+/* The park photo sits behind the whole page with one even dark tint.
+   It's drawn on a fixed layer (not background-attachment: fixed) so it also works on iPhone. */
+:root,
+:root:not([data-theme]) {
+  color-scheme: dark;
+  --paper: #121816;
+  --shelf: transparent;
+  --ink: #FFFFFF;
+  --muted: rgba(255, 255, 255, .82);
+  --pine: #9BDDBB;
+  --pine-strong: #B8EACF;
+  --rule: rgba(255, 255, 255, .24);
+  --focus: #FFFFFF;
+}
+
+body {
+  background: #1A2320;
+  position: relative;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-color: #1A2320;
   background-image:
-    linear-gradient(to bottom,
-      color-mix(in srgb, var(--tint) 94%, transparent) 0%,
-      color-mix(in srgb, var(--tint) 86%, transparent) 52%,
-      color-mix(in srgb, var(--tint) 10%, transparent) 100%),
+    linear-gradient(rgba(12, 18, 16, .62), rgba(12, 18, 16, .62)),
     url("../img/hero/park-mobile.jpg");
   background-image:
-    linear-gradient(to bottom,
-      color-mix(in srgb, var(--tint) 94%, transparent) 0%,
-      color-mix(in srgb, var(--tint) 86%, transparent) 52%,
-      color-mix(in srgb, var(--tint) 10%, transparent) 100%),
+    linear-gradient(rgba(12, 18, 16, .62), rgba(12, 18, 16, .62)),
     image-set(url("../img/hero/park-mobile.webp") type("image/webp"),
               url("../img/hero/park-mobile.jpg") type("image/jpeg"));
   background-size: cover;
-  background-position: center bottom;
+  background-position: center;
   background-repeat: no-repeat;
 }
+
+@media (min-width: 48rem) {
+  body::before {
+    background-image:
+      linear-gradient(rgba(12, 18, 16, .6), rgba(12, 18, 16, .6)),
+      url("../img/hero/park-1600.jpg");
+    background-image:
+      linear-gradient(rgba(12, 18, 16, .6), rgba(12, 18, 16, .6)),
+      image-set(url("../img/hero/park-1600.webp") type("image/webp"),
+                url("../img/hero/park-1600.jpg") type("image/jpeg"));
+  }
+}
+
+/* Header sits over the photo */
+.masthead {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  z-index: 2;
+}
+.brand__mark { color: #FFFFFF; }
+
+.lang-switch {
+  background: transparent;
+  border-color: rgba(255, 255, 255, .45);
+}
+.lang-switch__btn { color: rgba(255, 255, 255, .85); }
+.lang-switch__btn[aria-pressed="true"] { background: #FFFFFF; color: #1B2631; }
+
+/* Buttons keep the solid pine green with white text */
+.button { background: #1E6A4F; color: #FFFFFF; }
+.button:hover { background: #16523D; }
 
 /* The photo replaces the compass dial as the hero's visual. */
 .hero .dial { display: none; }
 
-.hero__inner { padding-bottom: 13rem; }
+.hero__inner {
+  min-height: min(88svh, 46rem);
+  align-content: center;
+  padding-block: 6rem 3rem;
+}
+
+.downloads { background: transparent; }
+
+.doc__cover img {
+  box-shadow: 0 8px 24px -8px rgba(0, 0, 0, .6);
+}
+
+.footer { border-top-color: rgba(255, 255, 255, .24); }
 
 @media (min-width: 48rem) {
-  .hero {
-    background-image:
-      linear-gradient(to right,
-        color-mix(in srgb, var(--tint) 94%, transparent) 0%,
-        color-mix(in srgb, var(--tint) 82%, transparent) 38%,
-        color-mix(in srgb, var(--tint) 0%, transparent) 70%),
-      url("../img/hero/park-1600.jpg");
-    background-image:
-      linear-gradient(to right,
-        color-mix(in srgb, var(--tint) 94%, transparent) 0%,
-        color-mix(in srgb, var(--tint) 82%, transparent) 38%,
-        color-mix(in srgb, var(--tint) 0%, transparent) 70%),
-      image-set(url("../img/hero/park-1600.webp") type("image/webp"),
-                url("../img/hero/park-1600.jpg") type("image/jpeg"));
-    background-position: center;
-  }
   .hero__inner {
     grid-template-columns: minmax(0, 1fr);
-    min-height: min(78vh, 44rem);
-    padding-block: 4rem 5rem;
+    min-height: min(82vh, 46rem);
+    padding-block: 7rem 4rem;
   }
-  .hero__text { max-width: 34rem; }
+  .hero__text { max-width: 36rem; }
 }
