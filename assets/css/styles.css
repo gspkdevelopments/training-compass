@@ -499,3 +499,56 @@ a { color: inherit; }
   .js .dial__needle { animation: none; }
   .dial__needle, .lang-switch__btn, .button { transition: none; }
 }
+
+/* ── Hero photo ─────────────────────────────────────────── */
+/* Mobile: portrait crop, text on a paper-tinted top, bars visible below the button. */
+.hero {
+  --tint: var(--paper);
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--tint) 94%, transparent) 0%,
+      color-mix(in srgb, var(--tint) 86%, transparent) 52%,
+      color-mix(in srgb, var(--tint) 10%, transparent) 100%),
+    url("../img/hero/park-mobile.jpg");
+  background-image:
+    linear-gradient(to bottom,
+      color-mix(in srgb, var(--tint) 94%, transparent) 0%,
+      color-mix(in srgb, var(--tint) 86%, transparent) 52%,
+      color-mix(in srgb, var(--tint) 10%, transparent) 100%),
+    image-set(url("../img/hero/park-mobile.webp") type("image/webp"),
+              url("../img/hero/park-mobile.jpg") type("image/jpeg"));
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+/* The photo replaces the compass dial as the hero's visual. */
+.hero .dial { display: none; }
+
+.hero__inner { padding-bottom: 13rem; }
+
+@media (min-width: 48rem) {
+  .hero {
+    background-image:
+      linear-gradient(to right,
+        color-mix(in srgb, var(--tint) 94%, transparent) 0%,
+        color-mix(in srgb, var(--tint) 82%, transparent) 38%,
+        color-mix(in srgb, var(--tint) 0%, transparent) 70%),
+      url("../img/hero/park-1600.jpg");
+    background-image:
+      linear-gradient(to right,
+        color-mix(in srgb, var(--tint) 94%, transparent) 0%,
+        color-mix(in srgb, var(--tint) 82%, transparent) 38%,
+        color-mix(in srgb, var(--tint) 0%, transparent) 70%),
+      image-set(url("../img/hero/park-1600.webp") type("image/webp"),
+                url("../img/hero/park-1600.jpg") type("image/jpeg"));
+    background-position: center;
+  }
+  .hero__inner {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: min(78vh, 44rem);
+    padding-block: 4rem 5rem;
+  }
+  .hero__text { max-width: 34rem; }
+}
